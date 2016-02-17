@@ -40,15 +40,23 @@ describe( '.copytotheplace( files )', function() {
 	before( function() {
 		ensureDirSpy.resolves( 'done' );
 		config( { copy: copySpy, ensureDir: ensureDirSpy } );
-		process.env.COPYTOTHEPLACE = place;
+	} );
+
+	it( 'fails silently if no COPYTOTHEPLACE environment variable is set', function() {
+		delete process.env.COPYTOTHEPLACE;
+		copytotheplace( files );
+		expect( ensureDirSpy ).to.not.have.been.called;
+		expect( copySpy ).to.not.have.been.called;
 	} );
 
 	it( 'creates the destination directory in the COPYTOTHEPLACE environment variable', function() {
+		process.env.COPYTOTHEPLACE = place;
 		copytotheplace( files );
 		expect( ensureDirSpy ).to.have.been.calledWith( place );
 	} );
 
 	it( 'copies each file to the destination in the COPYTOTHEPLACE environment variable', function() {
+		process.env.COPYTOTHEPLACE = place;
 		copytotheplace( files );
 		expect( copySpy ).to.have.been.calledWith( files[0], `${place}/${files[0]}` );
 		expect( copySpy ).to.have.been.calledWith( files[1], `${place}/${files[1]}` );
