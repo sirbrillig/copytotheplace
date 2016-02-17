@@ -1,11 +1,13 @@
-import { copy } from 'fs-extra-promise';
+import { copy, ensureDir } from 'fs-extra-promise';
 
 let copyOptions = {
-	copy
+	copy,
+	ensureDir,
 };
 
 export function copytotheplace( files, place ) {
-	files.map( file => copyOptions.copy( file, place ) );
+	copyOptions.ensureDir( place )
+	.then( () => files.map( file => copyOptions.copy( file, `${place}/${file}` ) ) );
 }
 
 export function config( options ) {
