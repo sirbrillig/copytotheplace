@@ -1,0 +1,33 @@
+{
+  "name": "copytotheplace",
+  "version": "1.0.0",
+  "description": "Utility to move files to a configurable and variable place",
+  "main": "index.js",
+  "scripts": {
+    "test": "node_modules/mocha/bin/mocha --compilers js:babel-register"
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  },
+  "author": "Payton Swick <payton@foolord.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5",
+    "sinon": "^1.17.3",
+    "sinon-chai": "^2.8.0"
+  },
+  "bin": {
+    "copytotheplace": "bin/copytotheplace.js"
+  },
+  "dependencies": {
+    "babel-cli": "^6.5.1",
+    "babel-core": "^6.5.2",
+    "babel-preset-es2015": "^6.5.0",
+    "babel-register": "^6.5.2",
+    "fs-extra-promise": "^0.3.1",
+    "minimist": "^1.2.0"
+  }
+}
