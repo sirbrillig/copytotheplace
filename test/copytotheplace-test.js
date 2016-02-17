@@ -9,25 +9,47 @@ chai.use( sinonChai );
 const expect = chai.expect;
 
 describe( '.copytotheplace( files, place )', function() {
-	it( 'creates the destination directory', function() {
-		const copySpy = sinon.spy();
-		const ensureDirSpy = sinon.stub().returnsPromise();
+	const copySpy = sinon.spy();
+	const ensureDirSpy = sinon.stub().returnsPromise();
+	const files = [ 'one', 'two' ];
+	const place = 'dest';
+
+	before( function() {
 		ensureDirSpy.resolves( 'done' );
 		config( { copy: copySpy, ensureDir: ensureDirSpy } );
-		const files = [ 'one', 'two' ];
-		const place = 'dest';
+	} );
+
+	it( 'creates the destination directory', function() {
 		copytotheplace( files, place );
 		expect( ensureDirSpy ).to.have.been.calledWith( place );
 	} );
 
-	it( 'copies each file to the place', function() {
-		const copySpy = sinon.spy();
-		const ensureDirSpy = sinon.stub().returnsPromise();
+	it( 'copies each file to the destination', function() {
+		copytotheplace( files, place );
+		expect( copySpy ).to.have.been.calledWith( files[0], `${place}/${files[0]}` );
+		expect( copySpy ).to.have.been.calledWith( files[1], `${place}/${files[1]}` );
+	} );
+} );
+
+describe( '.copytotheplace( files )', function() {
+	const copySpy = sinon.spy();
+	const ensureDirSpy = sinon.stub().returnsPromise();
+	const files = [ 'one', 'two' ];
+	const place = 'dest';
+
+	before( function() {
 		ensureDirSpy.resolves( 'done' );
 		config( { copy: copySpy, ensureDir: ensureDirSpy } );
-		const files = [ 'one', 'two' ];
-		const place = 'dest';
-		copytotheplace( files, place );
+		process.env.COPYTOTHEPLACE = place;
+	} );
+
+	it( 'creates the destination directory in the COPYTOTHEPLACE environment variable', function() {
+		copytotheplace( files );
+		expect( ensureDirSpy ).to.have.been.calledWith( place );
+	} );
+
+	it( 'copies each file to the destination in the COPYTOTHEPLACE environment variable', function() {
+		copytotheplace( files );
 		expect( copySpy ).to.have.been.calledWith( files[0], `${place}/${files[0]}` );
 		expect( copySpy ).to.have.been.calledWith( files[1], `${place}/${files[1]}` );
 	} );
