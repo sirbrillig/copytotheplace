@@ -21,9 +21,10 @@ export function copytotheplace( files, place ) {
 		return;
 	}
 	log( `Preparing to copy these files to "${place}": ${files}` );
-	copyOptions.ensureDir( place )
-	.then( () => files.map( file => copyOptions.copy( file, `${place}/${file}` ) ) );
-	log( 'Done copying' );
+	return copyOptions.ensureDir( place )
+	.then( () => Promise.all( files.map( file => copyOptions.copy( file, `${place}/${file}` ) ) ) )
+	.then( () => log( 'Done copying' ) )
+	.catch( err => log( err ) );
 }
 
 export function config( options ) {
