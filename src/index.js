@@ -18,7 +18,7 @@ export function copytotheplace( files, place ) {
 	if ( ! place ) place = process.env.COPYTOTHEPLACE;
 	if ( ! place ) {
 		log( 'No place specified. Not doing anything.' );
-		return;
+		return Promise.resolve();
 	}
 	log( `Preparing to copy these files to "${place}": ${files}` );
 	return copyOptions.ensureDir( place )

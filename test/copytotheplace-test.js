@@ -29,6 +29,13 @@ describe( '.copytotheplace( files, place )', function() {
 		expect( copySpy ).to.have.been.calledWith( files[0], `${place}/${files[0]}` );
 		expect( copySpy ).to.have.been.calledWith( files[1], `${place}/${files[1]}` );
 	} );
+
+	it( 'returns a promise that resolves when the files are copied', function() {
+		copytotheplace( files, place )
+		.then( function() {
+			expect( copySpy ).to.have.been.calledTwice;
+		} );
+	} );
 } );
 
 describe( '.copytotheplace( files )', function() {
@@ -60,5 +67,13 @@ describe( '.copytotheplace( files )', function() {
 		copytotheplace( files );
 		expect( copySpy ).to.have.been.calledWith( files[0], `${place}/${files[0]}` );
 		expect( copySpy ).to.have.been.calledWith( files[1], `${place}/${files[1]}` );
+	} );
+
+	it( 'returns a promise that resolves even if the copy fails', function() {
+		delete process.env.COPYTOTHEPLACE;
+		copytotheplace( files )
+		.then( function() {
+			expect( copySpy ).to.not.have.been.called;
+		} );
 	} );
 } );
