@@ -1,11 +1,11 @@
 import dotenv from 'dotenv';
-import { copy, ensureDir } from 'fs-extra-promise';
+import { copyAsync, ensureDirAsync } from 'fs-extra-promise';
 
 dotenv.config( { silent: true } );
 
 let copyOptions = {
-	copy,
-	ensureDir,
+	copy: copyAsync,
+	ensureDir: ensureDirAsync,
 };
 
 export function copytotheplace( files, place ) {
