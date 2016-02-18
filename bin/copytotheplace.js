@@ -11,7 +11,8 @@ var helpText = 'copytotheplace is a utility to move files to a configurable and 
 	'IMPORTANT NOTE: copytotheplace intentionally fails silently if no destination directory is set.\n' +
 	'You can set the destination directory on the command-line, via the COPYTOTHEPLACE environment\nvariable, or by writing COPYTOTHEPLACE=<some directory> to a .env file in this directory.\n\n' +
 	'Options:\n' +
-	'--place=<path>\tUse <path> as the destination directory.\n';
+	'--place=<path>\tUse <path> as the destination directory.\n' +
+	'--loud\tPrint lots of output instead of none.\n';
 
 // Parse command-line arguments
 var argv = parseArgs( process.argv.slice( 2 ), {
@@ -23,4 +24,5 @@ if ( ! argv._.length ) {
 	process.exit( 1 );
 }
 
+if ( argv.loud ) copytotheplace.config( { loud: true } );
 copytotheplace.copytotheplace( argv._, argv.place );
