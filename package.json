@@ -1,7 +1,7 @@
 {
   "name": "copytotheplace",
   "version": "1.0.0",
-  "description": "Utility to move files to a configurable and variable place",
+  "description": "Utility to copy files to a configurable and variable place",
   "main": "build/index.js",
   "scripts": {
     "test": "node_modules/mocha/bin/mocha --compilers js:babel-register",
