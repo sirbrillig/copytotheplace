@@ -1,6 +1,6 @@
 {
   "name": "copytotheplace",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Utility to copy files to a configurable and variable place",
   "main": "build/index.js",
   "scripts": {
