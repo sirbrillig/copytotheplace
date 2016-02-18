@@ -4,7 +4,8 @@
   "description": "Utility to move files to a configurable and variable place",
   "main": "build/index.js",
   "scripts": {
-    "test": "node_modules/mocha/bin/mocha --compilers js:babel-register"
+    "test": "node_modules/mocha/bin/mocha --compilers js:babel-register",
+    "build": "babel src -d build"
   },
   "babel": {
     "presets": [
