@@ -11,7 +11,7 @@ const expect = chai.expect;
 describe( '.copytotheplace( files, place )', function() {
 	const copySpy = sinon.spy();
 	const ensureDirSpy = sinon.stub().returnsPromise();
-	const files = [ 'one', 'two' ];
+	const files = [ 'one', 'somedir/two' ];
 	const place = 'dest';
 
 	before( function() {
@@ -26,8 +26,8 @@ describe( '.copytotheplace( files, place )', function() {
 
 	it( 'copies each file to the destination', function() {
 		copytotheplace( files, place );
-		expect( copySpy ).to.have.been.calledWith( files[0], `${place}/${files[0]}` );
-		expect( copySpy ).to.have.been.calledWith( files[1], `${place}/${files[1]}` );
+		expect( copySpy ).to.have.been.calledWith( files[0], `${place}/one` );
+		expect( copySpy ).to.have.been.calledWith( files[1], `${place}/two` );
 	} );
 
 	it( 'returns a promise that resolves when the files are copied', function() {
@@ -41,7 +41,7 @@ describe( '.copytotheplace( files, place )', function() {
 describe( '.copytotheplace( files )', function() {
 	const copySpy = sinon.spy();
 	const ensureDirSpy = sinon.stub().returnsPromise();
-	const files = [ 'one', 'two' ];
+	const files = [ 'one', 'somedir/two' ];
 	const place = 'dest';
 
 	before( function() {
@@ -65,8 +65,8 @@ describe( '.copytotheplace( files )', function() {
 	it( 'copies each file to the destination in the COPYTOTHEPLACE environment variable', function() {
 		process.env.COPYTOTHEPLACE = place;
 		copytotheplace( files );
-		expect( copySpy ).to.have.been.calledWith( files[0], `${place}/${files[0]}` );
-		expect( copySpy ).to.have.been.calledWith( files[1], `${place}/${files[1]}` );
+		expect( copySpy ).to.have.been.calledWith( files[0], `${place}/one` );
+		expect( copySpy ).to.have.been.calledWith( files[1], `${place}/two` );
 	} );
 
 	it( 'returns a promise that resolves even if the copy fails', function() {
