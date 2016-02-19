@@ -18,13 +18,17 @@ To install globally:
 
 `npm install -g copytotheplace`
 
-To install for a project:
+To install for a project (not necessary if you're using Grunt; see below):
 
 `npm install --save-dev copytotheplace`
 
 # Usage
 
 **IMPORTANT NOTE**: copytotheplace intentionally fails silently if no destination directory is set. You can set the destination directory on the command-line, via the `COPYTOTHEPLACE` environment variable, or by writing `COPYTOTHEPLACE=<some directory>` to a .env file in the directory where it is run.
+
+## With Grunt
+
+See [grunt-copytotheplace](https://github.com/sirbrillig/grunt-copytotheplace) which will take care of everything.
 
 ## Command-line
 
